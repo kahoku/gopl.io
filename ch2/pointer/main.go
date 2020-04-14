@@ -5,12 +5,20 @@ import (
 )
 
 func main() {
+<<<<<<< HEAD
 	//incrTest()
 	//equalTest()
 	retPrtTest()
 }
 
 //相等判定
+=======
+	incrTest()
+	//equalTest()
+	//retPrtTest()
+}
+
+>>>>>>> 8921b5061fd440fc978a0124c969fe46ca43f24a
 func equalTest() {
 	x := 1
 	p := &x
@@ -28,7 +36,10 @@ func incr(p *int) int {
 
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8921b5061fd440fc978a0124c969fe46ca43f24a
 func incrTest() {
 	v := 1
 	incr(&v)              // side effect: v is now 2

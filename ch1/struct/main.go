@@ -6,7 +6,6 @@ var v = Vertex{X: 1, Y: 2}  //指定key创建
 var v = []Vertex{{1,2},{5,2},{5,5}} // 初始化元素是结构体的slice
 vv := &Vertex {1, 2}//指针结构体变量，等价于 vv:= new(Vertex); *vv=Vertex{1,2}
 
-
 //匿名结构体
 point := struct {
 X, Y int
@@ -60,17 +59,18 @@ func (v *Vertex) add(n float64) {
 
 func main() {
 	//methodCall()
-	//inMapCase()
-   //declarCase()
+//	inMapCase()
+   declarCase()
    //useTag()
 
-   conversType()
+   //conversType()
 }
 
 //方法介绍
 func methodCall() {
 	vv := &Vertex{1, 2}
-	v := Vertex{3, 4}
+	v  := Vertex{3, 4}
+
 	//访问结构体成员
 	vv.X = 4
 	fmt.Printf("vv.X has changed : %v \n", vv)
@@ -94,8 +94,8 @@ func conversType() {
 
 	a = (*Vertex)(t)
 	fmt.Println(a)
-
 }
+
 //与map结合
 func inMapCase() {
 	type user struct{ name string  }
@@ -109,7 +109,7 @@ func inMapCase() {
 	}
 
 	fmt.Println(m[1].name)
-	// m[1].name = "Tom"
+	//m[1].name = "Tom"
 	// ./main.go:16:12: cannot assign to struct field m[1].name in map
 	fmt.Println(m)
 
@@ -124,6 +124,7 @@ func inMapCase() {
 
 	m2[1].name = "Jack" // 返回的是指针复制品。透过指针修改原对象是允许的。
 	fmt.Printf("m2:%#v \n", m2)
+	fmt.Printf("m2:%#v \n", m2[1])
 }
 
 //json与struct
@@ -150,4 +151,3 @@ func useTag() {
 	fmt.Printf("struct UserTag echo : %v\n", string(j_tag))
 
 }
-

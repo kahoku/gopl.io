@@ -1,6 +1,7 @@
 package scope
-
-var thing []string
+import ( 
+	"fmt"
+ )
 
 func init() {
 	thing = append(thing, "apple")
@@ -8,5 +9,6 @@ func init() {
 }
 
 func GetFirst() string {
+	fmt.Println("scope first ele is ", thing[0])
 	return thing[0]
 }

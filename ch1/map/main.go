@@ -20,11 +20,12 @@ import (
 func main() {
 	sortMap()
 	//is_equal := equalMap(map[string]int{"A": 0}, map[string]int{"B": 32})
-	fmt.Printf("is_equal:%v", is_equal)
+	//fmt.Printf("is_equal:%v", is_equal)
 }
 
 //map排序
 func sortMap() {
+
 	ages := map[string]int{
 		"alice":   31,
 		"charlie": 34,
@@ -34,6 +35,7 @@ func sortMap() {
 	//b := &ages["alice"] cannot take the address of ages["alice"] 
 
 	ages["alice"] = 3
+
 	var names []string
 	//因为ages已知，更明确的方式是：
 	// names := make([]string, 0, len(ages))
@@ -47,7 +49,8 @@ func sortMap() {
 		fmt.Printf("%s\t%d\n", name, ages[name])
 	}
 
-	checkname := "bob"
+	//检查键值是否存在的方法
+	checkname := "atom"
 	if _, ok := ages[checkname]; !ok {
 		fmt.Println(checkname + " is not exist in ages")
 	} else {
@@ -68,5 +71,3 @@ func equalMap(x, y map[string]int) bool {
 	}
 	return true
 }
-
-

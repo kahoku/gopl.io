@@ -8,7 +8,6 @@ import (
 	"math/rand"
 	"sort"
 	"testing"
-
 	"gopl.io/ch4/treesort"
 )
 

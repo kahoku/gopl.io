@@ -9,18 +9,22 @@ import (
 var y int
 
 func main() {
-	//scoperange()
-	fmt.Printf("%q", scope.GetSec())
-	fmt.Println(y)
+	scope.GetFirst()
+	scoperange()
+	//fmt.Printf("%q", scope.GetSec())
+	//fmt.Println(y)
 }
 
 //range创建的作用域
 func scoperange() {
 	x := "hello"
 	y = 100
+	//range 创建了隐式作用域
 	for _, x := range x {
 		x := x + 'A' - 'a'
-		fmt.Printf("%c", x) // "HELLO" (one letter per iteration)
+		fmt.Printf("%c \n", x) // "HELLO" (one letter per iteration)
 	}
-	fmt.Println("")
+	
+	fmt.Println(x)
+
 }

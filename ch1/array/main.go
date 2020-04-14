@@ -5,8 +5,8 @@ import "fmt"
 
 func main() {
 
-	showDeclar()
-	//showPtrCnt()
+	//showDeclar()
+	showPtrCnt()
 }
 
 //如何声明
@@ -15,6 +15,7 @@ func showDeclar() {
 	a[3] = 42     // 赋值42
 	i := a[3]     // 读取第三个元素
 	fmt.Printf("i:%v \n", i)
+
 	// 声明并初始化
 	var b = [2]int{1, 2}
 	//	b := [2]int{1, 2} //简短声明
@@ -37,8 +38,10 @@ func showPtrCnt() {
 	*array2[0] = "Red"
 	*array2[1] = "Blue"
 	*array2[2] = "Green"
+
 	// 将 array2 复制给 array1,他们存储的地址一样
-	array1     = array2
+	array1 = array2
+
 	*array1[0] = "Redold"
 
 	fmt.Printf("array1:%v\n", array1)

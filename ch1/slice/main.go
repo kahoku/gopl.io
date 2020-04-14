@@ -26,41 +26,46 @@ package main
 import "fmt"
 
 func main() {
-//	shareCnt()
-	assignCap()
+	//shareCnt()
+	//assignCap()
+	forRangeSlice()
 }
 
-//共享底层数据
+
+//共享数据
 func shareCnt() {
 	// 创建一个整型切片
 	// 其长度和容量都是 5 个元素
 	slice := []int{10, 20, 30, 40, 50}
 	// 创建一个新切片
-	// 其长度为 2 个元素，容量为 4 个元素
+	// 其长度为 2 个元素，容量为 4 个元素(不指定容量为到最后len(slice)=5)
 	newSlice := slice[1:3]
 
 	// 修改 newSlice 索引为 1 的元素
 	newSlice[1] = 35
 
 	// 同时也修改了原来的 slice 的索引为 2 的元素
-	fmt.Printf("share slice[1]:%v", slice[2])
+	fmt.Printf("share slice[1]:%v \n", slice[2])
 
-	// 使用原有的容量来分配一个新元素
+	// 使用原有的容量来分配一个新元素,旧的slice也会跟着改变
 	// 将新元素赋值为 60
 	newSlice = append(newSlice, 60)
+	fmt.Printf("slice:%v", slice)
 
 }
 
 //指定容量,可以新分配内存
+//指定容量
 func assignCap() {
 	// 创建字符串切片
 	// 其长度和容量都是 5 个元素
 	source := []string{"Apple", "Orange", "Plum", "Banana", "Grape"}
+
 	// 对第三个元素做切片，并限制容量
-	// 其长度和容量都是 1 个元素
+	// 其长度和容量都是 1 个元素, cap设置为索引3
 	slice := source[2:3:3]
-	// 向 slice 追加新字符串
-	slice = append(slice, "Kiwi")
+	// 向 slice 追加新字符串,原source不会变化，因为超过cap=1,底层重新分配
+	slice = append(slice, "Kiwi", "a")
 
 	//不会改变原来的数据
 	fmt.Printf("assignCap source:%v \n", source)
