@@ -9,7 +9,7 @@ package main
 
 import "fmt"
 
-//!+
+//!+单方向的Channel
 func counter(out chan<- int) {
 	for x := 0; x < 100; x++ {
 		out <- x
@@ -21,7 +21,7 @@ func squarer(out chan<- int, in <-chan int) {
 	for v := range in {
 		out <- v * v
 	}
-	close(out)
+	close(out)//close只能用在发送方
 }
 
 func printer(in <-chan int) {

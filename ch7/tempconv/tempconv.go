@@ -59,7 +59,7 @@ func (f *celsiusFlag) Set(s string) error {
 // The flag argument must have a quantity and a unit, e.g., "100C".
 func CelsiusFlag(name string, value Celsius, usage string) *Celsius {
 	f := celsiusFlag{value}
-	flag.CommandLine.Var(&f, name, usage)
+	flag.Var(&f, name, usage)
 	return &f.Celsius
 }
 

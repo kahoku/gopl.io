@@ -14,7 +14,7 @@ import (
 )
 
 //!+
-var temp = tempconv.CelsiusFlag("temp", 20.0, "the temperature")
+var temp = tempconv.CelsiusFlag("temp", 20.1, "the temperature")
 
 func main() {
 	flag.Parse()

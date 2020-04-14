@@ -14,6 +14,7 @@ import (
 //!+
 func main() {
 	fmt.Println("Commencing countdown.")
+	//返回一个channel，周期性的发送消息
 	tick := time.Tick(1 * time.Second)
 	for countdown := 10; countdown > 0; countdown-- {
 		fmt.Println(countdown)

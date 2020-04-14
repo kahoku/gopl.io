@@ -22,7 +22,7 @@ func (d dollars) String() string { return fmt.Sprintf("$%.2f", d) }
 func main() {
 	db := database{"shoes": 50, "socks": 5}
 	mux := http.NewServeMux()
-	mux.Handle("/list", http.HandlerFunc(db.list))
+	mux.Handle("/list", http.HandlerFunc(db.list))//类型转换非调用
 	mux.Handle("/price", http.HandlerFunc(db.price))
 	log.Fatal(http.ListenAndServe("localhost:8000", mux))
 }
@@ -51,7 +51,7 @@ func (db database) price(w http.ResponseWriter, req *http.Request) {
 /*
 //!+handlerfunc
 package http
-
+//这是一个有实现了接口http.Handler方法的函数类型。ServeHTTP方法的行为调用了它本身的函数。
 type HandlerFunc func(w ResponseWriter, r *Request)
 
 func (f HandlerFunc) ServeHTTP(w ResponseWriter, r *Request) {

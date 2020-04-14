@@ -20,6 +20,7 @@ import (
 //!+1
 var done = make(chan struct{})
 
+//撤销轮询
 func cancelled() bool {
 	select {
 	case <-done:
@@ -46,7 +47,7 @@ func main() {
 	}()
 	//!-2
 
-	// Traverse each root of the file tree in parallel.
+	// 遍历目录大小
 	fileSizes := make(chan int64)
 	var n sync.WaitGroup
 	for _, root := range roots {
@@ -54,21 +55,21 @@ func main() {
 		go walkDir(root, &n, fileSizes)
 	}
 	go func() {
-		n.Wait()
+		n.Wait() //遍历正常退出时
 		close(fileSizes)
 	}()
 
 	// Print the results periodically.
 	tick := time.Tick(500 * time.Millisecond)
 	var nfiles, nbytes int64
-loop:
+loop: //程序运行进度跟踪,在不支持并发的程序中通过日志记录
 	//!+3
 	for {
-		select {
+		select { //多路复用
 		case <-done:
 			// Drain fileSizes to allow existing goroutines to finish.
 			for range fileSizes {
-				// Do nothing.
+				// Do nothing. 这里是main goroutine，退出前需要清空fileSizes
 			}
 			return
 		case size, ok := <-fileSizes:
@@ -104,8 +105,8 @@ func walkDir(dir string, n *sync.WaitGroup, fileSizes chan<- int64) {
 		if entry.IsDir() {
 			n.Add(1)
 			subdir := filepath.Join(dir, entry.Name())
-			go walkDir(subdir, n, fileSizes)
-		} else {
+			go walkDir(subdir, n, fileSizes) //递归遍历子目录
+		} else { //如果是文件则通过fileSizes 发送文件大小
 			fileSizes <- entry.Size()
 		}
 		//!+4
@@ -119,9 +120,10 @@ var sema = make(chan struct{}, 20) // concurrency-limiting counting semaphore
 // dirents returns the entries of directory dir.
 //!+5
 func dirents(dir string) []os.FileInfo {
+	//通过一组阻塞版本的复用，实现收敛协程
 	select {
-	case sema <- struct{}{}: // acquire token
-	case <-done:
+	case sema <- struct{}{}: // acquire token 由于sema缓冲设置为了20，这里将无法进入，不在继续os.Open了
+	case <-done: //这里如果去
 		return nil // cancelled
 	}
 	defer func() { <-sema }() // release token

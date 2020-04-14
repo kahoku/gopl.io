@@ -20,8 +20,9 @@ func main() {
 		log.Fatal(err)
 	}
 	defer conn.Close()
-	go mustCopy(os.Stdout, conn)
-	mustCopy(conn, os.Stdin)
+	//以下两行不能互换，否则对输入无响应
+	go mustCopy(os.Stdout, conn) //将服务端的输出，写入客户端的标准输出
+	mustCopy(conn, os.Stdin)     // 将客户端的输入，写进连接内，等待服务器输出
 }
 
 //!-

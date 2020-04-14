@@ -18,11 +18,13 @@ func main() {
 		for x := 0; x < 100; x++ {
 			naturals <- x
 		}
+		//主动关闭通道
 		close(naturals)
 	}()
 
 	// Squarer
 	go func() {
+		//通道支持range
 		for x := range naturals {
 			squares <- x * x
 		}

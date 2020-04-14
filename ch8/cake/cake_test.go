@@ -6,8 +6,7 @@ package cake_test
 import (
 	"testing"
 	"time"
-
-	"gopl.io/ch8/cake"
+	"cake"
 )
 
 var defaults = cake.Shop{
@@ -19,6 +18,8 @@ var defaults = cake.Shop{
 	InscribeTime: 10 * time.Millisecond,
 }
 
+// i want to run 
+//go test -bench=Benchmark gopl.io/ch8/cake 
 func Benchmark(b *testing.B) {
 	// Baseline: one baker, one icer, one inscriber.
 	// Each step takes exactly 10ms.  No buffers.

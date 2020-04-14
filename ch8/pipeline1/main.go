@@ -8,7 +8,7 @@ package main
 
 import "fmt"
 
-//!+
+//!+没有关闭通知会一直执行计算
 func main() {
 	naturals := make(chan int)
 	squares := make(chan int)
