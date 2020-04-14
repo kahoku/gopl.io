@@ -25,7 +25,7 @@ func echo(c net.Conn, shout string, delay time.Duration) {
 }
 
 func handleConn(c net.Conn) {
-	input := bufio.NewScanner(c)
+	input := bufio.NewScanner(c) //从客户端连接读入文本
 	for input.Scan() {
 		echo(c, input.Text(), 1*time.Second)
 	}

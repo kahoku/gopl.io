@@ -16,7 +16,11 @@ import (
 
 func main() {
 	for _, url := range os.Args[1:] {
-		outline(url)
+		err := outline(url)
+		if err != nil {
+			fmt.Printf("err:%v", err)
+		}
+
 	}
 }
 

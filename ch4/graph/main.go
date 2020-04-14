@@ -32,6 +32,7 @@ func main() {
 	addEdge("a", "d")
 	addEdge("d", "a")
 	fmt.Println(hasEdge("a", "b"))
+	fmt.Println(hasEdge("a", "c"))
 	fmt.Println(hasEdge("c", "d"))
 	fmt.Println(hasEdge("a", "d"))
 	fmt.Println(hasEdge("d", "a"))

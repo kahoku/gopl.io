@@ -10,14 +10,27 @@ import "fmt"
 
 type Point struct{ X, Y int }
 
+func (p *Point) draw() {
+	fmt.Printf("Point.draw:X=%v,Y=%v\n", p.X, p.Y)
+}
+
 type Circle struct {
 	Point
 	Radius int
 }
 
+func (c *Circle) draw() {
+	fmt.Printf("Circle.draw:X=%v,Y=%v,Radius=%v\n", c.X, c.Y, c.Radius)
+}
+
 type Wheel struct {
 	Circle
 	Spokes int
+}
+type Triangle struct {
+	P1 Point
+	P2 Point
+	P3 Point
 }
 
 func main() {
@@ -43,4 +56,10 @@ func main() {
 	// Output:
 	// Wheel{Circle:Circle{Point:Point{X:42, Y:8}, Radius:5}, Spokes:20}
 	//!-
+
+	w.draw()
+
+	tri := Triangle{P1: Point{1, 1}, P2: Point{1, 2}, P3: Point{2, 1}}
+	fmt.Printf("%#v\n", tri)
+	//outPut main.Triangle{P1:main.Point{X:1, Y:1}, P2:main.Point{X:1, Y:2}, P3:main.Point{X:2, Y:1}}
 }

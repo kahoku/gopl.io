@@ -15,6 +15,12 @@ import (
 //!+
 func main() {
 	fmt.Println(strings.Join(os.Args[1:], " "))
+	s := strings.Join(os.Args[1:], " ")
+	var unit string
+	var value float64
+	fmt.Sscanf(s, "%f%s", &value, &unit) // no error check needed
+	fmt.Println("%f,%s", value, unit)
+	fmt.Println(os.Args[1:])
 }
 
 //!-
