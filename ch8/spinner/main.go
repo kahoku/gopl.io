@@ -21,7 +21,6 @@ func main() {
 
 func spinner(delay time.Duration) {
 	for {
-		fmt.Println("enter spinner")
 		for _, r := range `-\|/` {
 			fmt.Printf("\r%c", r)
 			time.Sleep(delay)

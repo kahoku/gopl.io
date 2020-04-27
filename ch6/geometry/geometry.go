@@ -28,6 +28,7 @@ func (p Point) Distance(q Point) float64 {
 // A Path is a journey connecting the points with straight lines.
 type Path []Point
 
+//Path是一个命名的slice类型，而不是Point那样的struct类型，然而我们依然可以为它定义方法。在能够给任意类型定义方法这一点上，Go和很多其它的面向对象的语言不太一样。
 // Distance returns the distance traveled along the path.
 func (path Path) Distance() float64 {
 	sum := 0.0

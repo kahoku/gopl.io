@@ -7,6 +7,7 @@
 package main
 
 import "fmt"
+import "os"
 
 //!+没有关闭通知会一直执行计算
 func main() {
@@ -16,7 +17,13 @@ func main() {
 	// Counter
 	go func() {
 		for x := 0; ; x++ {
-			naturals <- x
+			if(x > 100) {
+				close(naturals)
+				os.Exit(4)
+				break
+			}else{
+				naturals <- x
+			}
 		}
 	}()
 

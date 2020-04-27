@@ -70,7 +70,7 @@ func makeThumbnails4(filenames []string) error {
 
 	for range filenames {
 		if err := <-errors; err != nil {
-			return err // NOTE: incorrect: goroutine leak!
+			return err // NOTE: incorrect: goroutine leak!, 当它遇到第一个非nil的error时会直接将error返回到调用方，使得没有一个goroutine去排空errors channel。这样剩下的worker goroutine在向这个channel中发送值时，都会永远地阻塞下去，并且永远都不会退出。这种情况叫做goroutine泄露
 		}
 	}
 
@@ -118,10 +118,10 @@ func makeThumbnails6(filenames <-chan string) int64 {
 	sizes := make(chan int64)
 	var wg sync.WaitGroup // number of working goroutines
 	for f := range filenames {
-		wg.Add(1)
+		wg.Add(1) //// 需要在goroutine开始之前调用，保证closer的wg.wait在之后执行
 		// worker
 		go func(f string) {
-			defer wg.Done()
+			defer wg.Done()// 这里与wg.Add(-1) 其实是等价的,使用defer保证在程序出错时，依然被调用。
 			thumb, err := thumbnail.ImageFile(f)
 			if err != nil {
 				log.Println(err)
@@ -132,7 +132,7 @@ func makeThumbnails6(filenames <-chan string) int64 {
 		}(f)
 	}
 
-	// closer
+	// closer 如果等待操作被放在了main goroutine中，在循环之前，这样的话就永远都不会结束了，如果在循环之后，那么又变成了不可达的部分，因为没有任何东西去关闭这个channel，这个循环就永远都不会终止
 	go func() {
 		wg.Wait()
 		close(sizes)

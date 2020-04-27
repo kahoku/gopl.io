@@ -12,10 +12,12 @@ import (
 	"log"
 	"net"
 	"time"
+	"fmt"
 )
 
 func main() {
-	listener, err := net.Listen("tcp", "localhost:8000")
+	listener, err := net.Listen("tcp", "localhost:5303")
+	fmt.Println("5303")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -30,7 +32,7 @@ func main() {
 }
 
 func handleConn(c net.Conn) {
-	defer c.Close()
+	defer close(c)
 	for {
 		_, err := io.WriteString(c, time.Now().Format("15:04:05\n"))
 		if err != nil {
@@ -40,4 +42,8 @@ func handleConn(c net.Conn) {
 	}
 }
 
+func close(c net.Conn) {
+	fmt.Println("client is close")
+	c.Close()
+}
 //!-
